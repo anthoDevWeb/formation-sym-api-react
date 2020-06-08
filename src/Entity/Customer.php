@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
  * @ApiResource(
- * collectionOperations={"GET"={"path"="/clients"}, "POST"},
+ * collectionOperations={"GET", "POST"},
  * itemOperations={"GET"={"path"="/clients/{id}"},"PUT","DELETE"},
  * subresourceOperations={
  *      "invoices_get_subresource"={"path"="/customers/{id}/factures"}
@@ -95,8 +95,9 @@ class Customer
      *
      * @return float
      */
-    public function getTotalAmount(): float{
-        return array_reduce($this->invoices->toArray(), function($total, $invoice){
+    public function getTotalAmount(): float
+    {
+        return array_reduce($this->invoices->toArray(), function ($total, $invoice) {
             return $total + $invoice->getAmount();
         }, 0);
     }
@@ -106,8 +107,9 @@ class Customer
      *
      * @return float
      */
-    public function getUnpaidAmount(): float{
-        return array_reduce($this->invoices->toArray(), function($total, $invoice){
+    public function getUnpaidAmount(): float
+    {
+        return array_reduce($this->invoices->toArray(), function ($total, $invoice) {
             return $total + ($invoice->getStatus() === "PAID" || $invoice->getStatus() === "CANCELLED" ? 0 : $invoice->getAmount());
         }, 0);
     }
