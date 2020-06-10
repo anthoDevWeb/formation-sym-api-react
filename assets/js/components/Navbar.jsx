@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
+import AuthAPI from "../services/AuthAPI";
+import { NavLink } from "react-router-dom";
 
-const Navbar = (props) => {
+//import du context d'authentification
+import AuthContext from "../contexts/AuthContext";
+
+const Navbar = ({ history }) => {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+
+  //Appel du composant de déconnexion
+  const handleLogout = () => {
+    AuthAPI.logout();
+    setIsAuthenticated(false);
+    history.push("/login");
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a className="navbar-brand" href="#">
+      <NavLink className="navbar-brand" to="/">
         SymReact
-      </a>
+      </NavLink>
       <button
         className="navbar-toggler"
         type="button"
@@ -21,32 +35,38 @@ const Navbar = (props) => {
       <div className="collapse navbar-collapse" id="navbarColor01">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <a className="nav-link" href="#/clients">
+            <NavLink className="nav-link" to="/clients">
               Clients
-            </a>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#/factures">
+            <NavLink className="nav-link" to="/factures">
               Factures
-            </a>
+            </NavLink>
           </li>
         </ul>
         <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <a href="#" className="nav-link">
-              Inscription
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="#" className="btn btn-success">
-              Connexion !
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="#" className="btn btn-danger">
-              Deconnexion
-            </a>
-          </li>
+          {(!isAuthenticated && (
+            <>
+              {" "}
+              <li className="nav-item">
+                <NavLink to="/inscription" className="nav-link">
+                  Inscription
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/login" className="btn btn-success">
+                  Connexion !
+                </NavLink>
+              </li>{" "}
+            </>
+          )) || (
+            <li className="nav-item">
+              <button onClick={handleLogout} className="btn btn-danger">
+                Deconnexion
+              </button>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
