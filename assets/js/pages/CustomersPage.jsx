@@ -4,6 +4,8 @@ import Pagination from "../components/Pagination";
 //Appel des éléments de l'API
 import CustomersAPI from "../services/CustomersAPI";
 
+import { Link } from "react-router-dom";
+
 //Récupération des clients dans la BDD via l'API
 const CustomerPage = (props) => {
   const [customers, setCustomers] = useState([]);
@@ -67,7 +69,12 @@ const CustomerPage = (props) => {
 
   return (
     <>
-      <h1>Liste des clients</h1>
+      <div className="mb-3 d-flex justify-content-between align-items-center">
+        <h1>Liste des clients</h1>
+        <Link to="/clients/new" className="btn btn-secondary">
+          Créer un client
+        </Link>
+      </div>
 
       <div className="form-group">
         <input

@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ApiResource(
@@ -50,10 +51,16 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var string The hashed password
+     * @Assert\IdenticalTo(propertyPath="password", message="la confirmation du mot de passe n'est pas valide")
+     */
+    private $passwordConfirm;
+
+    /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"customers_read", "invoices_read","invoices_subresource","users_read"})
      * @Assert\NotBlank(message="Le prénom est obligatoire")
-     * @Assert\Length(min=3, minMessage="Le prénom doit faire entre 3 et 255 caractères", max=255, maxMessage="Le prénom doit faire entre 3 et 255 caractères")
+     * @Assert\Length(min=3, minMessage="Le prénom doit faire entre 3 et 255 caractères", max=255, maxMessage="Le prénom doit faire entre 3 et 255 caractères",allowEmptyString = true)
      */
     private $firstName;
 
@@ -61,7 +68,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Groups({"customers_read", "invoices_read","invoices_subresource","users_read"})
      * @Assert\NotBlank(message="Le nom de famille est obligatoire")
-     * @Assert\Length(min=3, minMessage="Le nom de famille doit faire entre 3 et 255 caractères", max=255, maxMessage="Le nom de famille doit faire entre 3 et 255 caractères")
+     * @Assert\Length(min=3, minMessage="Le nom de famille doit faire entre 3 et 255 caractères", max=255, maxMessage="Le nom de famille doit faire entre 3 et 255 caractères",allowEmptyString = true)
      */
     private $lastName;
 
@@ -117,6 +124,21 @@ class User implements UserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPasswordConfirm(): string
+    {
+        return (string) $this->passwordConfirm;
+    }
+
+    public function setPasswordConfirm(string $passwordConfirm): self
+    {
+        $this->passwordConfirm = $passwordConfirm;
 
         return $this;
     }

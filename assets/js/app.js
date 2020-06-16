@@ -15,6 +15,9 @@ import HomePage from "./pages/HomePage";
 import InvoicesPage from "./pages/InvoicesPage";
 import LoginPage from "./pages/LoginPage";
 import AuthAPI from "./services/AuthAPI";
+import CustomerPage from "./pages/CustomerPage";
+import InvoicePage from "./pages/InvoicePage";
+import RegisterPage from "./pages/RegisterPage";
 
 AuthAPI.setup();
 
@@ -38,7 +41,10 @@ const App = () => {
         <main className="container pt-5">
           <Switch>
             <Route path="/login" component={LoginPage} />
+            <Route path="/inscription" component={RegisterPage} />
+            <PrivateRoute path="/clients/:id" component={CustomerPage} />
             <PrivateRoute path="/clients" component={CustomersPage} />
+            <PrivateRoute path="/factures/:id" component={InvoicePage} />
             <PrivateRoute path="/factures" component={InvoicesPage} />
             <Route path="/" component={HomePage} />
           </Switch>
