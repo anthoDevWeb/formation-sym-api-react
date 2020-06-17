@@ -19,9 +19,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
  * @ApiResource(
  * collectionOperations={"GET", "POST"},
- * itemOperations={"GET"={"path"="/clients/{id}"},"PUT","DELETE"},
+ * itemOperations={"GET"={"path"="/customers/{id}"},"PUT","DELETE"},
  * subresourceOperations={
- *      "invoices_get_subresource"={"path"="/customers/{id}/factures"}
+ *      "invoices_get_subresource"={"path"="/customers/{id}/invoices"}
  * },
  *  normalizationContext={
  *      "groups"={"customers_read"}
