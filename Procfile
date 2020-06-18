@@ -1,0 +1,1 @@
+web: $(composer confi bin-dir)/heroku-php-apache2 public/
