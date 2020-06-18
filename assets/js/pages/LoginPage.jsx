@@ -30,8 +30,6 @@ const LoginPage = ({ history }) => {
       toast.success("Vous êtes désormais connecté !");
       history.replace("/clients");
     } catch (error) {
-      console.log(error.response);
-      //Message d'erreur afficher en cas d'erreur de connexion
       setError(
         "Aucun compte ne possède cette adresse email ou alors les informations ne correspondent pas"
       );
@@ -59,6 +57,7 @@ const LoginPage = ({ history }) => {
           value={credentials.password}
           onChange={handleChange}
           type="password"
+          error={error}
         />
         <div className="form-group">
           <button type="submit" className="btn btn-success">
