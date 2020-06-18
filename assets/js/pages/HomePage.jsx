@@ -13,11 +13,6 @@ const HomePage = (props) => {
         N'hésitez pas lancez-vous dans la gestion des factures de vos clients en
         toute simplicité.👍
       </p>
-      <p className="lead">
-        <a className="btn btn-primary btn-lg" href="#" role="button">
-          Learn more
-        </a>
-      </p>
     </div>
   );
 };
