@@ -42,7 +42,7 @@ const InvoicesPage = (props) => {
 
     //suppression immédiate de l'utilisateur dans la liste
     setInvoices(invoices.filter((invoice) => invoice.id !== id));
-    //action de suppresion de l'utilisateur dans la BDD
+    //action de suppression de l'utilisateur dans la BDD
     try {
       await InvoicesAPI.delete(id);
       toast.success("La facture a bien été supprimée");

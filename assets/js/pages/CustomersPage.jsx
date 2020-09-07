@@ -15,7 +15,7 @@ const CustomerPage = (props) => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
-  //Recupère les customers dans la BDD
+  //Récupère les customers dans la BDD
   const fetchCustomers = async () => {
     try {
       const data = await CustomersAPI.findAll();
@@ -37,7 +37,7 @@ const CustomerPage = (props) => {
 
     //suppression immédiate de l'utilisateur dans la liste
     setCustomers(customers.filter((customer) => customer.id !== id));
-    //action de suppresion de l'utilisateur dans la BDD
+    //action de suppression de l'utilisateur dans la BDD
     try {
       await CustomersAPI.delete(id);
       toast.success("Le client a bien été supprimé ");
